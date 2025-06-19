@@ -20,7 +20,11 @@
 					<div class="col-md-6">
 						<form th:action="@{/Inventarios/edicionNarazas}" method="post" th:object="${inventario}">
 							
-							
+							<div class="mb-3">
+								<label for="inputNom">Codigo de Inventario</label>
+								<input type="number" class="form-control" id="codInven" required
+								th:field="*{numero}" readonly>
+							</div>
 							
 							<div class="mb-3">
 								<label for="inputNom">Descripción</label>
