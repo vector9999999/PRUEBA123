@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -66,5 +67,28 @@ public class InventariosController {
 		return ("redirect:/Inventarios/ListadoNarazasVictor");
 	}
 	
+	@GetMapping("/edicionNarazas/{id}")
+	public String edicionNarazas(@PathVariable int id, Model model) {
+		
+		model.addAttribute("lstProducto", _prod.findAll());
+		model.addAttribute("lstCategoria", _cate.findAll());
+		
+		Inventario in = _inve.findById(id).orElseThrow();
+		model.addAttribute("inventario", in);
+		
+		return("Inventarios/edicionNarazas");
+	}
+	
+	@PostMapping("/edicionNarazas")
+	public String edicionNarazas(@ModelAttribute  Inventario inven,Model model, RedirectAttributes flash) {
+		
+		Inventario invGuardado = _inve.save(inven); 
+		model.addAttribute("lstProducto", _prod.findAll());
+		model.addAttribute("lstCategoria", _cate.findAll());
+		
+		String mensaje = Alert.sweetAlertSuccess("El producto con codigo " + invGuardado.getNumero() +"fue Actualizado Exitosamente");
+		flash.addFlashAttribute("alert",mensaje);
+		return ("redirect:/Inventarios/ListadoNarazasVictor");
+	}
 	
 }
