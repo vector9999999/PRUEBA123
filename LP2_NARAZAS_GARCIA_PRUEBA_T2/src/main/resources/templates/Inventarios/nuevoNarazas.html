@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Farmacia CiberWeb</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+		integrity="..." crossorigin="anonymous" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+	<div class="container mt-4">
+		<div class="card shadow-lg">
+			<div class="card-body">
+				<h1 class="text-center">Producto Nuevo</h1>
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-6">
+						<form th:action="@{/Inventarios/registroNarazas}" method="post" th:object="${inventario}">
+							
+							
+							
+							<div class="mb-3">
+								<label for="inputNom">Descripción</label>
+								<input type="date" class="form-control" id="date" required
+								th:field="*{fechaVencimiento}">
+							</div>
+							
+							<div class="row">
+								<div class="mb-3 col-md-6">
+									<label for="inputPro">Producto</label>
+									<select id="inputPro" class="form-select" required th:field="*{producto}">
+										<option value="-1">--Seleccione--</option>
+										<option th:each="prod : ${lstProducto}" th:value="${prod.id}"
+											th:text="${prod.nombre}" ></option>
+
+									</select>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="mb-3 col-md-6">
+									<label for="costoIngreso">costoIngreso</label>
+									<input type="number" class="form-control" id="costoIngreso" placeholder="0" required
+									th:field="*{costoIngreso}">
+								</div>
+								
+								<div class="mb-3 col-md-6">
+									<label for="cantidad">cantidad</label>
+									<input type="number" class="form-control" id="cantidad" placeholder="0.00"
+										required th:field="*{cantidad}">
+								</div>
+								
+								<div class="mb-3 col-md-6">
+									<label for="lote">lote</label>
+									<input type="text" class="form-control" id="lote" placeholder="0.00"
+										required th:field="*{lote}">
+								</div>
+								
+								
+							</div>
+							
+							
+							<div class="mb-3 col-md-6">
+								<label for="codEstado">codEstado</label>
+								<select id="codEstado" class="form-select" required>
+									<option value="-1">--Seleccione--</option>
+									<option value="1">Activo</option>
+									<option value="2">Vencido</option>
+									<option value="3">En tránsito</option>
+									<option value="4">Bloqueado</option>
+								</select>
+							</div>
+							<button type="reset" class="btn btn-outline-secondary">
+								Limpiar 
+								<i class="fa-regular fa-broom fa-shake" style="color: #74C0FC;"></i>
+							</button>
+							<button type="submit" class="btn btn-primary">
+								Registrar
+								<i class="fa-solid fa-floppy-disk fa-shake" style="color: #B197FC;"></i>
+							</button>
+							<a th:href="@{/Inventarios/ListadoNarazasVictor}" class="btn btn-dark">Regresar </a>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<div th:if="${alert}">
+		<div th:utext="${alert}"></div>	
+	</div>
+</body>
+
+</html>
